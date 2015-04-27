@@ -13,12 +13,12 @@
 (function() {
   'use strict';
 
-  var sthApp = require('../../src/sth_app');
-  var sthTestConfig = require('./sth_app_test_configuration');
-  var sthConfig = require('../../src/sth_configuration');
-  var sthLogger = require('../../src/sth_logger')(sthConfig);
-  var sthHelper = require('../../src/sth_helper.js')(sthConfig, sthLogger);
-  var sthTestHelper = require('./sth_app_test_helper.js')
+  var sthApp = require('../../lib/fiware-comet');
+  var sthTestConfig = require('./fiware-comet_test_configuration');
+  var sthConfig = require('../../lib/fiware-comet-configuration');
+  var sthLogger = require('../../lib/fiware-comet-logger')(sthConfig);
+  var sthHelper = require('../../lib/fiware-comet-helper.js')(sthConfig, sthLogger);
+  var sthTestHelper = require('./fiware-comet_test_helper.js')
     (sthTestConfig, sthConfig, sthApp.sthDatabase, sthHelper);
   var hapi = require('hapi');
   var request = require('request');
@@ -40,9 +40,7 @@
   describe('database connection', function() {
     it('should be a database available', function(done) {
       sthApp.sthDatabase.connect(sthConfig.DB_AUTHENTICATION, sthConfig.DB_URI,
-        sthConfig.REPLICA_SET, sthApp.sthDatabase.getDatabase(sthConfig.SERVICE), sthConfig.POOL_SIZE, function(err) {
-          done(err);
-        });
+        sthConfig.REPLICA_SET, sthApp.sthDatabase.getDatabase(sthConfig.SERVICE), sthConfig.POOL_SIZE, done);
 
     });
   });

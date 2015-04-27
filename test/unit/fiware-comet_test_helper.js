@@ -528,39 +528,9 @@
    */
   function cleanDatabaseSuite() {
     if (sthTestConfig.CLEAN) {
-      it('should drop the collection created for the events', function (done) {
-        var collectionName4Events = sthDatabase.getCollectionName4Events(
-          sthConfig.SERVICE_PATH, sthTestConfig.ENTITY_ID, sthTestConfig.ENTITY_TYPE,
-          sthTestConfig.ATTRIBUTE_NAME);
-        sthDatabase.getCollection(sthDatabase.getDatabase(sthConfig.SERVICE), collectionName4Events, false,
-          function (err, collection) {
-            if (err) {
-              return done(err);
-            }
-            collection.drop(function (err) {
-              done(err);
-            });
-          }
-        );
-      });
+      it('should drop the collection created for the events', dropRawEventCollectionTest);
 
-      it('should drop the collection created for the aggregated data', function (done) {
-        var collectionName4Aggregated = sthDatabase.getCollectionName4Aggregated(
-          sthConfig.SERVICE_PATH, sthTestConfig.ENTITY_ID, sthTestConfig.ENTITY_TYPE,
-          sthTestConfig.ATTRIBUTE_NAME);
-        sthDatabase.getCollection(sthDatabase.getDatabase(sthConfig.SERVICE),
-          collectionName4Aggregated,
-          false,
-          function (err, collection) {
-            if (err) {
-              return done(err);
-            }
-            collection.drop(function (err) {
-              done(err);
-            });
-          }
-        );
-      });
+      it('should drop the collection created for the aggregated data', dropAggregatedDataCollectionTest);
     }
   }
 
